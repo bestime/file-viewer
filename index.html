@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>文件预览插件</title>
+  <style type="text/css">
+    #source-room{
+      margin: 40px auto;
+      box-shadow: 0 0 10px black;
+      width: 500px;
+      height: 350px;
+      overflow: hidden;
+    }
+  </style>
+  <body>
+    <div id="source-room"></div>
+
+    <script type="importmap">
+      {
+        "imports": {
+          "@bestime/utils_base": "../tool/base/dist/esm/index.min.mjs",
+          "@bestime/utils_browser": "../tool/browser/dist/esm/index.min.mjs"
+        }
+      }
+    </script>
+
+    <script type="module">
+      const testUrl = 'http://127.0.0.1:5001/static/files/%E5%A4%A9%E7%84%B6%E6%B0%94%E8%B5%84%E8%AE%AF%E5%91%A8%E6%8A%A52023%E5%B9%B4%E7%AC%AC38%E6%9C%9F.pdf'
+      import FileViewer, { install } from './dist/index.min.mjs'
+     
+      install('./dist/static/')
+      const sourceBox = document.getElementById('source-room')
+      const controller = new FileViewer()
+      controller.show(sourceBox, testUrl)
+      
+    </script>
+  </body>
+</html>
