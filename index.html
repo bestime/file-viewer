@@ -4,8 +4,11 @@
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <title>文件预览插件</title>
   <style type="text/css">
+    body {
+      background-color: yellow;
+    }
     #source-room{
-      margin: 40px auto;
+      margin: 250px auto;
       box-shadow: 0 0 10px black;
       width: 500px;
       height: 350px;
@@ -32,6 +35,7 @@
       const sourceBox = document.getElementById('source-room')
       const controller = new FileViewer()
       controller.show(sourceBox, testUrl)
+      console.log("controller", controller)
       
     </script>
   </body>
