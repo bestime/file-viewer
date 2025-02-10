@@ -1,0 +1,29 @@
+.file-viewer-wrapper[theme=default] {
+  background-color: #202020; 
+  
+
+  .file-viewer-pdf-tool-box,
+  .file-viewer-tool-body{
+    background-color: #444444;
+    .icon-group {
+      background-color: #606060;
+      span {
+        background-color: transparent;
+      }
+    }
+    b {
+      background-color: #606060;
+      color: #fff;
+    }
+    span {
+      background-color: #606060;
+      &::before {
+        background-image: url("./icon.png");
+      }
+      
+      &:hover {
+        background-color: #868686;
+      }
+    }
+  }
+}

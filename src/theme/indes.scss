@@ -1,0 +1,147 @@
+.file-viewer-wrapper {
+  position: relative;
+  margin: 0;
+  user-select: none;
+  padding: 0;
+  height: 100%;
+  border: none;
+  box-sizing: border-box;
+  flex-shrink: 0;
+  font-size: 0;
+  .original {
+    width: 0;
+    height: 0;
+    margin: 0;
+    padding: 0;
+    border: none;
+    transition: transform 0.3s ease-out;
+    -webkit-user-drag: none;
+    &.no-duration {
+      transition: unset;
+    }
+  }
+  .scale-item {
+    transform-origin: center center;
+    position: absolute;
+    cursor: grab;
+    outline: green solid 4px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    transition: opacity 0.3s ease-out;
+    &.loading {
+      opacity: 0;
+    }
+  }
+}
+.file-viewer-scale-value {
+  font-size: 14px;
+  color: #fff;
+  display: inline-block;
+  vertical-align: middle;
+  font-style: normal;
+  
+}
+
+.file-viewer-content {
+  position: relative;
+  height: 100%;
+  border: none;
+  box-sizing: border-box;  
+  &.move .scale-item {
+    cursor: grabbing;
+  }
+}
+
+.file-viewer-tool {
+  position: absolute;
+  z-index: 10;
+  left: 0;
+  bottom: 10px;
+  right: 0px;
+  user-select: none;
+  text-align: center;
+  
+}
+
+
+.file-viewer-pdf-tool-box,
+.file-viewer-tool-body{
+  padding: 5px 0;
+  border-radius: 50px;
+  text-align: center;
+  display: inline-block;
+  overflow: hidden;
+  .icon-group {
+    display: inline-block;
+    border-radius: 30px;
+    margin: 0 3px;
+    span {
+      margin: 0;
+    }
+  }
+  b {    
+    font-size: 12px;
+    display: inline-block;
+    margin: 0 3px;
+    cursor: pointer;
+    vertical-align: middle;
+    height: 30px;
+    line-height: 30px;
+    border-radius: 30px;
+    padding: 0 3px;
+    font-weight: normal;
+  }
+  span {
+    display: inline-block;
+    vertical-align: middle;
+    width: 30px;
+    height: 30px;
+    border-radius: 50%;
+    overflow: hidden;
+    color: white;
+    margin: 0 3px;
+    cursor: pointer;
+    position:relative;
+    font-size: 0;
+    &::before {
+      content: '';
+      width: 16px;
+      height: 16px;
+      margin-left: -8px;
+      margin-top: -8px;    
+      position: absolute;
+      left: 50%;
+      top: 50%;
+    }
+    &.big::before {
+      background-position: 0 0;
+    }
+    &.small::before {
+      background-position: -17px 0;
+    }
+    &.rotate::before {
+      background-position: -34px 0;
+    }
+    &.adaption::before {
+      background-position: -51px 0;
+    }
+    &.prev::before {
+      background-position: -68px 0;
+    }
+    &.next::before {
+      background-position: 0 -17px;
+    }
+  }  
+}
+
+.file-viewer-pdf-tool-box {
+  position: absolute;
+  top: 10px;
+  right: 10px;
+  z-index: 2;
+  user-select: none;  
+  
+
+}
+
