@@ -46,6 +46,7 @@ export default class FileViewer {
   _viewrWrapper: HTMLDivElement
   _viewrBody: HTMLDivElement
   _scalevalue:HTMLElement
+  _setpvalue: HTMLElement
   _viewrScale: HTMLDivElement
   _initTimer: any
   _config: IViewerConfig
@@ -97,6 +98,9 @@ export default class FileViewer {
     
     const oToolBody = document.createElement('div')
     oWrapper.className = 'file-viewer-wrapper'
+    if(this._config.outline) {
+      oWrapper.className += ' outline'
+    }
     
     oWrapper.setAttribute('theme', this._config.theme)
     oTool.className = 'file-viewer-tool'
@@ -106,16 +110,21 @@ export default class FileViewer {
 
     oBody.appendChild(this._viewrScale)
     const oPre = document.createElement('span')
+    const oSetp = document.createElement('i')
     const oNext = document.createElement('span')
     const o100 = document.createElement('span')
+    const ooop = document.createElement('span')
     const oBig = document.createElement('span')
     const oSmall = document.createElement('span')
     const oRotate = document.createElement('span')
-    const oGroup = document.createElement('div')
+    const oGroup_01 = document.createElement('div')
+    const oGroup_02 = document.createElement('div')
     const oScaleValue = document.createElement('i')
+    oSetp.className = 'file-viewer-scale-value'
     oScaleValue.className = 'file-viewer-scale-value'
     this._scalevalue = oScaleValue
-    oGroup.className = 'icon-group'
+    oGroup_01.className = 'icon-group'
+    oGroup_02.className = 'icon-group'
 
     oPre.className = 'prev'
     oNext.className = 'next'
@@ -123,6 +132,9 @@ export default class FileViewer {
     oSmall.className = 'small'
     oRotate.className = 'rotate'
     o100.className = 'adaption'
+    ooop.className = 'ratio_1'
+
+    this._setpvalue = oSetp
 
     oPre.title = '上一个'
     oNext.title = '下一个'
@@ -130,15 +142,19 @@ export default class FileViewer {
     oSmall.title = '缩小'
     o100.title = '适配尺寸'
     oRotate.title = '旋转'
+    ooop.title = '1:1显示'
 
     oTool.appendChild(oToolBody)
-    oToolBody.appendChild(oPre)
-    oToolBody.appendChild(oNext)
-    oToolBody.appendChild(oGroup)
-    oGroup.appendChild(oSmall)
-    oGroup.appendChild(oScaleValue)
-    oGroup.appendChild(oBig)
-    oGroup.appendChild(o100)
+    oGroup_02.appendChild(oPre)
+    oGroup_02.appendChild(oSetp)
+    oGroup_02.appendChild(oNext)
+    oToolBody.appendChild(oGroup_02)
+    oToolBody.appendChild(oGroup_01)
+    oGroup_01.appendChild(oSmall)
+    oGroup_01.appendChild(oScaleValue)
+    oGroup_01.appendChild(oBig)
+    oGroup_01.appendChild(o100)
+    oGroup_01.appendChild(ooop)
     
     
     oToolBody.appendChild(oRotate)
@@ -152,14 +168,14 @@ export default class FileViewer {
       if(toIndex === this._dataList.length) {
         toIndex = 0
       }
-      this.setIndex(toIndex)
+      this.preview(toIndex)
     }
     oPre.onclick = () => {
       let toIndex = this._current.index - 1
       if(toIndex <0) {
         toIndex = this._dataList.length - 1
       }
-      this.setIndex(toIndex)
+      this.preview(toIndex)
     }
 
     oBig.onclick = () => {
@@ -175,6 +191,12 @@ export default class FileViewer {
       this._mouse.x = 0
       this._mouse.y = 0
       this._initCenterScale()
+    }
+
+    ooop.onclick =() => {
+      this._mouse.x = 0
+      this._mouse.y = 0
+      this._setScale(1, true)
     }
 
     this._mouseWeelObs = observeMouseWheel(oWrapper, (dir) => {
@@ -283,18 +305,20 @@ export default class FileViewer {
     }
     this._dataList = isArray(data) ? data : [data]
 
-    console.log("当前数据", this._dataList)
   }
 
-  setIndex (index: number) {
+  /**
+   * 预览一个资源
+   * @param index 资源索引
+   */
+  preview (index: number) {
     if(index <0 || index>=this._dataList.length) {
       throw "当前索引超出了数据级"
     }
     
     this._current.index = index
     this._show(this._dataList[index])
-    
-    console.log(`显示第：${index} 张`)
+    this._setpvalue.innerHTML = `${index+1}/${this._dataList.length}`
   }
 
 
@@ -422,7 +446,7 @@ export default class FileViewer {
     // 在图片上
     const _xIsInImg = this._coordinateX > scaleDomInfo.x && this._coordinateX <=  scaleDomInfo.width * this._scale + scaleDomInfo.x
     // 图片比容器大
-    const _xIsImgBigger = Math.ceil(scaleDomInfo.x + scaleDomInfo.width * this._scale) > pos.x + pos.width
+    const _xIsImgBigger = Math.ceil(scaleDomInfo.x + scaleDomInfo.width * this._scale) >= pos.x + pos.width
 
     const isXOn = _xIsInImg && _xIsImgBigger
     
@@ -446,8 +470,6 @@ export default class FileViewer {
   _onDocMove (ev: any, changeCacheValue?: boolean) {
     let vx = this._canFocusX(this._scale)
     let vy = this._canFocusY(this._scale)
-    
-
     
     const canMove = vx || vy
     if(this._mouse.isDown && canMove) {
@@ -525,7 +547,6 @@ export default class FileViewer {
 
 
     if(changeCacheValue) {
-      // console.log("充值", focusX, focusY)
       this._current.left = left
       this._current.top = top
     }

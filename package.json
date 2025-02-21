@@ -50,12 +50,11 @@
     "access": "public"
   },
   "peerDependencies": {
-    "axios": "^1.7.7",
-    "maptalks": "^1.0.0-rc.37"
+    
   },
   "dependencies": {
     "@bestime/utils_base": "^1.0.12",
-    "@bestime/utils_browser": "^1.0.11",
-    "lodash-es": "^4.17.21"
+    "@bestime/utils_browser": "^1.0.11"
+    
   }
 }

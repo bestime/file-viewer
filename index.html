@@ -44,6 +44,7 @@
       install('./dist/static/')
       const sourceBox = document.getElementById('source-room')
       const controller = new FileViewer({
+        // outline: true,
         mount: sourceBox
       })
       controller.setData([
@@ -64,8 +65,8 @@
           type: 'image'
         },
       ])
-      controller.setIndex(0)
-      console.log("controller", controller, controller.setIndex)
+      controller.preview(0)
+      console.log("controller", controller)
       
     </script>
   </body>

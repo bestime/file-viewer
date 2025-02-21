@@ -11,5 +11,6 @@ export interface ITypeDom {
 
 export interface IViewerConfig {
   theme: 'default',
+  outline?: boolean,
   mount?: HTMLDivElement
 }

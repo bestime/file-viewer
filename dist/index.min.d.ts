@@ -8,6 +8,7 @@ interface ITypeDom {
 }
 interface IViewerConfig {
     theme: 'default';
+    outline?: boolean;
     mount?: HTMLDivElement;
 }
 
@@ -20,6 +21,7 @@ declare class FileViewer {
     _viewrWrapper: HTMLDivElement;
     _viewrBody: HTMLDivElement;
     _scalevalue: HTMLElement;
+    _setpvalue: HTMLElement;
     _viewrScale: HTMLDivElement;
     _initTimer: any;
     _config: IViewerConfig;
@@ -60,7 +62,11 @@ declare class FileViewer {
     _stepBig(): void;
     _stepSmall(): void;
     setData(data: IFileItem | IFileItem[]): void;
-    setIndex(index: number): void;
+    /**
+     * 预览一个资源
+     * @param index 资源索引
+     */
+    preview(index: number): void;
     _show(item: IFileItem): Promise<void>;
     _setMouseToImgCenter(setX: boolean, setY: boolean): void;
     _setScale(v: number, toCenter: boolean): void;
