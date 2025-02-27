@@ -36,8 +36,8 @@ async function loadPdfPlugin (address: IPluginSrc): Promise<any> {
 
 export default async function parsePdfInfo (baseUrl: string, fileUrl: string): Promise<ITypeDom> {
   const pdfjsLib = await loadPdfPlugin({
-    index: resolvePath(baseUrl, 'pdf.min.mjs'),
-    worker: resolvePath(baseUrl, 'pdf.worker.mjs'),
+    index: resolvePath(baseUrl, 'pdfjs-4.10.38-dist/build/pdf.mjs'),
+    worker: resolvePath(baseUrl, 'pdfjs-4.10.38-dist/build/pdf.worker.mjs'),
   })
   
   const canvas = document.createElement('canvas')
@@ -65,7 +65,11 @@ export default async function parsePdfInfo (baseUrl: string, fileUrl: string): P
   var scale = 3;
   
 
-  const pdf: any = await pdfjsLib.getDocument(fileUrl).promise
+  const pdf: any = await pdfjsLib.getDocument({
+    url: fileUrl,
+    cMapUrl: resolvePath(baseUrl, 'pdfjs-4.10.38-dist/web/cmaps/'),
+    cMapPacked: true
+  }).promise
 
   let currentPageIndex = 0
 
