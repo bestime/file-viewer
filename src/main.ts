@@ -281,6 +281,7 @@ export default class FileViewer {
     this._viewrScale.classList.add('loading')
   }
 
+  
 
   get _coordinateX () {    
     return isNull(this._mouse.forceX) ? this._mouse.x : this._mouse.forceX
@@ -579,6 +580,7 @@ export default class FileViewer {
     this._setScale(initScale, true)    
 
   }
+
 
   dispose () {
     this?._mouseWeelObs?.dispose()

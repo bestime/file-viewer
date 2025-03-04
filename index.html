@@ -19,13 +19,13 @@
       justify-content: center;
     }
     #source-room{
-      box-shadow: 0 0 10px black;
+      
       width: 800px;
-      height: 650px;
-      overflow: hidden;
+      height: 650px;      
     }
   </style>
   <body>
+    
     
     <div id="source-room"></div>
 
@@ -43,7 +43,7 @@
       
       install('./dist/static/')
       const sourceBox = document.getElementById('source-room')
-      const controller = new FileViewer({
+      window.controller = new FileViewer({
         // outline: true,
         mount: sourceBox
       })

@@ -16,7 +16,7 @@ import FileViewer from '@bestime/file-viewer'
 // 实例化插件
 const iFileCcontroller = new FileViewer({
   outline: true,
-  mount: document.getElementById('source-room'), // 挂在至容器
+  mount: document.getElementById('source-room'), // 挂在至容器，需要给它设定宽高
 })
 
 // 设置文件列表（会覆盖之前的数据）
