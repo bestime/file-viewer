@@ -1,13 +1,16 @@
 # 图片、PDF预览插件
 
-## 安装
-- 第一步：`npm i @bestime/file-viewer`
-- 第二步：将静态资源：`node_modules/@bestime/file-viewer/dist/static/`复制到你的项目中，并注册静态资源访问的相对路径，以 `/` 结尾
-  ```ts
-  import { install } from "@bestime/file-viewer"
-  // 如果不注册，会导致PDF依赖的脚本无法正确找到
-  install("./public/static/")
-  ```
+
+## 第一步
+`npm i @bestime/file-viewer`
+
+## 第二步
+将静态资源：`node_modules/@bestime/file-viewer/dist/static/`复制到你的项目中，并注册静态资源访问的相对路径，以 `/` 结尾
+```ts
+import { install } from "@bestime/file-viewer"
+// 如果不注册，会导致PDF依赖的脚本无法正确找到
+install("./public/static/")
+```
 ## 使用
 ```ts
 // 导入插件

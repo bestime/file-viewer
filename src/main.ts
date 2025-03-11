@@ -3,7 +3,8 @@ import parsePdfInfo from './parsePdfInfo'
 import { resolvePath } from './common'
 import type { ITypeDom, IViewerConfig } from './common'
 import "./theme/indes.scss"
-import "./theme/default/index.scss"
+import "./theme/default.scss"
+import "./theme/cqpgx-jyzx.scss"
 import { getRelativePos, observeMouseWheel } from '@bestime/utils_browser'
 import { isArray, isNull, roundFixed } from '@bestime/utils_base'
 import { libraryFile } from "@bestime/utils_browser";
@@ -68,6 +69,7 @@ export default class FileViewer {
     locking: false
   }
   _current = {
+    type: undefined as IFileItem['type'] | undefined,
     index: -1,
     file: undefined as ITypeDom | undefined,
     /** 这个是上一次对齐左上角的left值，不参与居中计算 */
@@ -85,7 +87,8 @@ export default class FileViewer {
   _mouseWeelObs: ReturnType<typeof observeMouseWheel> | undefined
   constructor (options?: Partial<IViewerConfig>) {
     this._config = Object.assign({
-      theme: 'default'
+      theme: 'default',
+      mouseWheelPdfScale: true,
     }, options)
     
     this._viewrScale = document.createElement('div')
@@ -202,12 +205,25 @@ export default class FileViewer {
     this._mouseWeelObs = observeMouseWheel(oWrapper, (dir) => {
       this._mouse.forceX = undefined
       this._mouse.forceY = undefined
-      if(dir === -1) {
-        this._stepSmall()
-      } else if(dir === 1){
-        this._stepBig()
+      if(this._current.type === 'pdf' && !this._config.mouseWheelPdfScale) {
+        console.log("pdf翻页")
+        const oNextBtn = this._current.file?.tool.querySelector('.next') as HTMLSpanElement
+        const oPreBtn = this._current.file?.tool.querySelector('.prev') as HTMLSpanElement
+        if(dir === -1) {
+          oNextBtn?.click?.()
+        } else {
+          oPreBtn?.click?.()
+        }
+        
+      } else {
+        if(dir === -1) {
+          this._stepSmall()
+        } else if(dir === 1){
+          this._stepBig()
+        }
       }
     }, true)
+
     this._viewrBody = oBody
     this._viewrWrapper = oWrapper
     oWrapper.onmousedown = (ev) => {
@@ -327,7 +343,7 @@ export default class FileViewer {
   async _show (item: IFileItem) {    
     const flag = ++this._viewTimes
     
-    
+    this._current.type = item.type
     
     let typeDom: ITypeDom | undefined;
     if(item.type === 'pdf') {

@@ -10,7 +10,9 @@ export interface ITypeDom {
 }
 
 export interface IViewerConfig {
-  theme: 'default',
+  theme: 'default' | 'cqpgx-jyzx',
   outline?: boolean,
-  mount?: HTMLDivElement
+  mount?: HTMLDivElement,
+  /** PDF模式先，滚动鼠标是否缩放，否则翻页 */
+  mouseWheelPdfScale: boolean
 }

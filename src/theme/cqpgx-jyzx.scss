@@ -1,0 +1,92 @@
+.file-viewer-wrapper[theme="cqpgx-jyzx"] {
+  
+  .file-viewer-content {
+    background-color: #000736;    
+    overflow: hidden;
+  }
+  .file-viewer-pdf-tool-box,
+  .file-viewer-tool-body{
+    background-color: #335aae;
+    padding: 10px;
+    .icon-group {
+      background-color: #0c7cff;
+      span {
+        background-color: transparent;
+      }
+    }
+    b {
+      background-color: #0c7cff;
+      color: #fff;
+      min-width: 52px;
+      width:auto;
+      box-sizing: border-box;
+      height: 52px;
+      line-height: 52px;
+      font-size: 22px;
+      padding: 0 10px;
+    }
+    span {
+      width: 52px;
+      height: 52px;
+      background-color: #0c7cff;
+      &::before {
+        background-image: url("./icon-02.png");
+        width: 52px;
+        height: 52px;
+        margin-left: -26px;
+        margin-top: -26px;
+      }
+      
+      &:hover {
+        background-color: #4a9bf7;
+      }
+    }
+  }
+  .file-viewer-scale-value {
+    font-size: 22px;
+  }
+  .file-viewer-tool-body span{
+    &.prev:before {
+      background-position: -318px 0;
+    }
+    &.next:before {
+      background-position: -0 0;
+    }
+    &.small:before {
+      background-position: -106px 0;
+    }
+    &.small:before {
+      background-position: -106px 0;
+    }
+    &.big:before {
+      background-position: -159px 0;
+    }
+    &.adaption:before {
+      background-position: -265px 0;
+    }
+    &.ratio_1:before {
+      background-position: -53px 0;
+    }
+    &.rotate:before {
+      background-position: -212px 0;
+    }
+  }
+  .file-viewer-pdf-tool-box {
+    flex-direction: row;
+    gap: 5px;
+    padding: 0 10px;
+    right: 50%;
+    transform: translate3d(50%, 0,0);
+
+    span{
+      &.prev:before {
+        transform: rotate(0deg);
+        background-position: -318px 0;
+      }
+      &.next:before {
+        transform: rotate(0deg);
+        background-position: 0 0;
+      }
+    }
+  }
+}

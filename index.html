@@ -45,7 +45,9 @@
       const sourceBox = document.getElementById('source-room')
       window.controller = new FileViewer({
         // outline: true,
-        mount: sourceBox
+        theme: 'cqpgx-jyzx',
+        mount: sourceBox,
+        mouseWheelPdfScale: false
       })
       controller.setData([
         {

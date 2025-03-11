@@ -1,5 +1,5 @@
 import { libraryFile } from "@bestime/utils_browser";
-import { changeIndex } from "@bestime/utils_base";
+import { changeIndex, debounce } from "@bestime/utils_base";
 import { resolvePath, type ITypeDom } from './common'
 
 interface IPluginSrc {
@@ -39,7 +39,7 @@ export default async function parsePdfInfo (baseUrl: string, fileUrl: string): P
     index: resolvePath(baseUrl, 'pdfjs-4.10.38-dist/build/pdf.mjs'),
     worker: resolvePath(baseUrl, 'pdfjs-4.10.38-dist/build/pdf.worker.mjs'),
   })
-  
+    
   const canvas = document.createElement('canvas')
   canvas.className = 'original'
   const oToolWrapper = document.createElement('div')
@@ -73,15 +73,26 @@ export default async function parsePdfInfo (baseUrl: string, fileUrl: string): P
 
   let currentPageIndex = 0
 
-  oNextBtn.onclick = function () {
-    currentPageIndex = changeIndex(pdf.numPages-1, currentPageIndex, 1)
-    setCurrentPage(currentPageIndex+1)
+  const debPage = debounce(function(dir:'next'|'prev'){
+    if(dir === 'next') {
+      currentPageIndex = changeIndex(pdf.numPages-1, currentPageIndex, 1)
+      setCurrentPage(currentPageIndex+1)
+    } else {
+      currentPageIndex = changeIndex(pdf.numPages-1, currentPageIndex, -1)
+      setCurrentPage(currentPageIndex+1)
+    }
+  }, 200)
+
+  const debNextFun = function () {
+    debPage('next')
   }
-  oPreBtn.onclick = function () {
-    currentPageIndex = changeIndex(pdf.numPages-1, currentPageIndex, -1)
-    setCurrentPage(currentPageIndex+1)
+
+  const debPrevFun = function () {
+    debPage('prev')
   }
-  
+
+  oNextBtn.onclick = debNextFun
+  oPreBtn.onclick = debPrevFun  
 
   async function setCurrentPage (toPage: number) {
     
@@ -105,7 +116,6 @@ export default async function parsePdfInfo (baseUrl: string, fileUrl: string): P
     var renderTask = pageController.render(renderContext);
     await renderTask.promise 
   }
-
 
   await setCurrentPage(1)
   return {

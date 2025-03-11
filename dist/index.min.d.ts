@@ -7,9 +7,11 @@ interface ITypeDom {
     height: number;
 }
 interface IViewerConfig {
-    theme: 'default';
+    theme: 'default' | 'cqpgx-jyzx';
     outline?: boolean;
     mount?: HTMLDivElement;
+    /** PDF模式先，滚动鼠标是否缩放，否则翻页 */
+    mouseWheelPdfScale: boolean;
 }
 
 interface IFileItem {
@@ -42,6 +44,7 @@ declare class FileViewer {
         locking: boolean;
     };
     _current: {
+        type: "image" | "pdf" | undefined;
         index: number;
         file: ITypeDom | undefined;
         /** 这个是上一次对齐左上角的left值，不参与居中计算 */
