@@ -70,7 +70,7 @@ export default async function parsePdfInfo (baseUrl: string, fileUrl: string): P
 
   const pdf: any = await pdfjsLib.getDocument({
     url: fileUrl,
-    cMapUrl: resolvePath(baseUrl, 'pdfjs-4.10.38-dist/web/cmaps/'),
+    cMapUrl: resolvePath(baseUrl, 'pdfjs-5.4.78-dist/web/cmaps/'),
     cMapPacked: true
   }).promise
 
