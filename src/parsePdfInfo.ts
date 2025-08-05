@@ -1,5 +1,5 @@
 import { libraryFile } from "@bestime/utils_browser";
-import { changeIndex, debounce } from "@bestime/utils_base";
+import { changeIndex, debounce, uuid } from "@bestime/utils_base";
 import { resolvePath, type ITypeDom } from './common'
 
 interface IPluginSrc {
@@ -35,10 +35,13 @@ async function loadPdfPlugin (address: IPluginSrc): Promise<any> {
 
 
 export default async function parsePdfInfo (baseUrl: string, fileUrl: string): Promise<ITypeDom> {
+  console.log("11111")
   const pdfjsLib = await loadPdfPlugin({
-    index: resolvePath(baseUrl, 'pdfjs-4.10.38-dist/build/pdf.mjs'),
-    worker: resolvePath(baseUrl, 'pdfjs-4.10.38-dist/build/pdf.worker.mjs'),
+    index: resolvePath(baseUrl, 'pdfjs-5.4.78-dist/build/pdf.js?t='+uuid(10)),
+    worker: resolvePath(baseUrl, 'pdfjs-5.4.78-dist/build/pdf.worker.js?t='+uuid(10)),
   })
+
+  console.log("22222")
     
   const canvas = document.createElement('canvas')
   canvas.className = 'original'
