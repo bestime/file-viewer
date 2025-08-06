@@ -34,14 +34,13 @@ async function loadPdfPlugin (address: IPluginSrc): Promise<any> {
 
 
 
-export default async function parsePdfInfo (baseUrl: string, fileUrl: string): Promise<ITypeDom> {
-  console.log("11111")
+export default async function parsePdfInfo (baseUrl: string, fileUrl: string,  scale: number): Promise<ITypeDom> {
+
   const pdfjsLib = await loadPdfPlugin({
-    index: resolvePath(baseUrl, 'pdfjs-5.4.78-dist/build/pdf.js?t='+uuid(10)),
-    worker: resolvePath(baseUrl, 'pdfjs-5.4.78-dist/build/pdf.worker.js?t='+uuid(10)),
+    index: resolvePath(baseUrl, 'pdfjs-5.4.78-dist/build/pdf.js'),
+    worker: resolvePath(baseUrl, 'pdfjs-5.4.78-dist/build/pdf.worker.js'),
   })
 
-  console.log("22222")
     
   const canvas = document.createElement('canvas')
   canvas.className = 'original'
@@ -65,7 +64,7 @@ export default async function parsePdfInfo (baseUrl: string, fileUrl: string): P
   
   
   oToolWrapper.className = 'file-viewer-pdf-tool-box'
-  var scale = 3;
+
   
 
   const pdf: any = await pdfjsLib.getDocument({
@@ -101,7 +100,7 @@ export default async function parsePdfInfo (baseUrl: string, fileUrl: string): P
     
     oCurrentPage.innerText = `${toPage}/${pdf.numPages}`
     const pageController = await pdf.getPage(toPage)
-    var viewport = pageController.getViewport({scale: scale});
+    var viewport = pageController.getViewport({scale});
     var context = canvas.getContext('2d');
     realWidth = viewport.width
     realHeight = viewport.height

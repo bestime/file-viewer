@@ -1,6 +1,6 @@
 {
   "name": "@bestime/file-viewer",
-  "version": "1.0.8",
+  "version": "1.0.11",
   "main": "./dist/index.min.mjs",
   "module": "./dist/index.min.mjs",
   "typings": "./dist/index.min.d.ts",
@@ -53,8 +53,8 @@
     
   },
   "dependencies": {
-    "@bestime/utils_base": "^1.0.12",
-    "@bestime/utils_browser": "^1.0.11"
+    "@bestime/utils_base": "^1.0.17",
+    "@bestime/utils_browser": "^1.0.14"
     
   }
 }

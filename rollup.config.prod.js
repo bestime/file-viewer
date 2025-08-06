@@ -53,14 +53,29 @@ export default [
       '@bestime/utils_base',
       '@bestime/utils_browser',
     ],
-    output: {
-      file: `dist/index.min.mjs`,
-      banner: getBanner(),
-      format: 'esm',
-      strict: true,
-      indent: false,
-      sourcemap: false,      
-    },
+    output: [
+      {
+        file: `dist/index.min.mjs`,
+        banner: getBanner(),
+        format: 'esm',
+        strict: true,
+        indent: false,
+        sourcemap: false,      
+      },
+      {
+        name: 'fileLibs',
+        file: `dist/index.min.js`,
+        banner: getBanner(),
+        format: 'umd',
+        strict: true,
+        indent: false,
+        sourcemap: false,
+        globals: {
+          '@bestime/utils_base': 'jUtilsBase',
+          '@bestime/utils_browser': 'jUtilsBrowser',
+        }
+      }
+    ],
     
     plugins: [
       nodeResolve(),

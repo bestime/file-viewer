@@ -88,6 +88,7 @@ export default class FileViewer {
   constructor (options?: Partial<IViewerConfig>) {
     this._config = Object.assign({
       theme: 'default',
+      ratio: 3,
       mouseWheelPdfScale: true,
     }, options)
     
@@ -206,7 +207,6 @@ export default class FileViewer {
       this._mouse.forceX = undefined
       this._mouse.forceY = undefined
       if(this._current.type === 'pdf' && !this._config.mouseWheelPdfScale) {
-        console.log("pdf翻页")
         const oNextBtn = this._current.file?.tool.querySelector('.next') as HTMLSpanElement
         const oPreBtn = this._current.file?.tool.querySelector('.prev') as HTMLSpanElement
         if(dir === -1) {
@@ -348,7 +348,7 @@ export default class FileViewer {
     let typeDom: ITypeDom | undefined;
     if(item.type === 'pdf') {
       const [pdf] = await Promise.all([
-        parsePdfInfo(pluginBaseUrl, item.url)
+        parsePdfInfo(pluginBaseUrl, item.url, this._config.ratio)
       ])
       typeDom = pdf
     } else if(item.type === 'image') {

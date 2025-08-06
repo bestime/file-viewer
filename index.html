@@ -24,37 +24,42 @@
       height: 650px;      
     }
   </style>
-  <script src="https://cdn.jsdelivr.net/npm/vconsole@3.15.0/dist/vconsole.min.js"></script>
+  <script src="https://cdn.bootcdn.net/ajax/libs/vConsole/3.15.1/vconsole.min.js"></script>
+  <script src="../tool/base/dist/umd/index.min.cjs"></script>
   <script>
      const vConsole = new VConsole();   
-     console.log("测试AT", Array.prototype.at)
+     console.log("测试AT-12", Array.prototype.at)
+
+
   </script>
+  
+  <script src="../tool/browser/dist/umd/index.min.cjs?t=10"></script>
+  <script src="./dist/index.min.js"></script>
   <body>
     
     
     <div id="source-room"></div>
 
-    <script type="importmap">
-      {
-        "imports": {
-          "@bestime/utils_base": "../tool/base/dist/esm/index.min.mjs",
-          "@bestime/utils_browser": "../tool/browser/dist/esm/index.min.mjs"
-        }
-      }
-    </script>
-
-    <script type="module">     
-   
-      import FileViewer, { install } from './dist/index.min.mjs?t=9'
+    <script>     
+      var FileViewer = fileLibs.default
+      var install = fileLibs.install
+      
       
       install('./dist/static/')
       const sourceBox = document.getElementById('source-room')
-      window.controller = new FileViewer({
-        // outline: true,
-        // theme: 'cqpgx-jyzx',
-        mount: sourceBox,
-        mouseWheelPdfScale: false
-      })
+      console.log("1111111", jUtilsBase)
+      console.log("333333", jUtilsBrowser)
+      try {
+        window.controller = new FileViewer({
+          // outline: true,
+          // theme: 'cqpgx-jyzx',
+          mount: sourceBox,
+          mouseWheelPdfScale: false
+        })
+      } catch (err){
+        console.log("报错了", err)
+      }
+      console.log("222222222")
       controller.setData([
         {
           url: './static/1.pdf',
