@@ -20,7 +20,7 @@ async function loadPdfPlugin (address: IPluginSrc): Promise<any> {
       type: 'js',
       module: 'pdfjsLib',
       attribute: {
-        author: 'bestime',
+        author: 'bestime22',
         type: 'module'
       },
       url: address.index,
@@ -36,10 +36,12 @@ async function loadPdfPlugin (address: IPluginSrc): Promise<any> {
 
 export default async function parsePdfInfo (baseUrl: string, fileUrl: string,  scale: number): Promise<ITypeDom> {
 
+  
   const pdfjsLib = await loadPdfPlugin({
     index: resolvePath(baseUrl, 'pdfjs-5.4.78-dist/build/pdf.js'),
     worker: resolvePath(baseUrl, 'pdfjs-5.4.78-dist/build/pdf.worker.js'),
   })
+
 
     
   const canvas = document.createElement('canvas')

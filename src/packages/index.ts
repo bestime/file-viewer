@@ -2,9 +2,7 @@
 import parsePdfInfo from './parsePdfInfo'
 import { resolvePath } from './common'
 import type { ITypeDom, IViewerConfig } from './common'
-import "./theme/indes.scss"
-import "./theme/default.scss"
-import "./theme/cqpgx-jyzx.scss"
+
 import { getRelativePos, observeMouseWheel } from '@bestime/utils_browser'
 import { isArray, isNull, roundFixed } from '@bestime/utils_base'
 import { libraryFile } from "@bestime/utils_browser";
@@ -334,7 +332,7 @@ export default class FileViewer {
     }
     
     this._current.index = index
-    this._show(this._dataList[index])
+    this._show(this._dataList[index]!)
     this._setpvalue.innerHTML = `${index+1}/${this._dataList.length}`
   }
 

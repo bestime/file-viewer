@@ -48,7 +48,7 @@ function getDtsName (type) {
 
 export default [
   {
-    input: './src/main.ts',
+    input: './src/packages/index.ts',
     external: [
       '@bestime/utils_base',
       '@bestime/utils_browser',
@@ -74,7 +74,7 @@ export default [
           '@bestime/utils_base': 'jUtilsBase',
           '@bestime/utils_browser': 'jUtilsBrowser',
         }
-      }
+      },
     ],
     
     plugins: [
@@ -112,7 +112,7 @@ export default [
     ]
   },
   {
-    input: './src/main.ts',
+    input: './src/packages/index.ts',
     output: [
       { file: `dist/index.min.d.ts`, format: "es" }
     ],
@@ -126,6 +126,39 @@ export default [
       }), 
     ],
   },
-  
+  {
+    input: './src/css.ts', // 单独提出来是应为集成到项目中，用非npm方式，静态资源有问题
+    output: [
+      {
+        file: `dist/css.mjs`,
+        banner: getBanner(),
+        format: 'esm',
+        strict: true,
+        indent: false,
+        sourcemap: false,      
+      },
+    ],
+    
+    plugins: [
+      
+      rollupTypescript({
+        include: "src/**/*.ts",
+        exclude: "node_modules/**",
+        typescript: typescript,
+        useTsconfigDeclarationDir: true,
+        allowNonTsExtensions: false,
+      }),
+
+      postcss({
+        extract: 'static/index.min.css'
+      }),
+      
+      terser({
+        format: {
+          beautify: false
+        }
+      })
+    ]
+  },
   
 ];
